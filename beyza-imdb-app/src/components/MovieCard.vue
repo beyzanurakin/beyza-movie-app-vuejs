@@ -1,38 +1,62 @@
 <template>
-    <div class="movie-card">
-      <img :src="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" :alt="movie.title" class="movie-poster">
-      <div class="movie-details">
-        <h3>{{ movie.title }}</h3>
-        <p>{{ movie.release_date }}</p>
-        <p>{{ movie.genres.map(genre => genre.name).join(', ') }}</p>
-        <p>{{ movie.overview }}</p>
-        <p>IMDb Rating: {{ movie.vote_average }}</p>
-      </div>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    props: {
-      movie: Object
+  <div class="movie-card">
+    <img class="movie-poster" :src="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" :alt="movie.title" />
+    <p class="movie-name">{{ movie.title }}</p>
+    <p class="release-date">{{ movie.release_date }}</p>
+    <span>{{ Math.floor(movie.vote_average) }}</span>
+
+    <button v-if="showFavoriteButton" @click="toggleFavorite(movie)">
+      <span v-if="isFavorited(movie.id)">★</span>
+      <span v-else>☆</span>
+    </button>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex';
+
+export default {
+  name: 'MovieCard',
+  props: {
+    movie: {
+      type: Object,
+      required: true
+    },
+    showFavoriteButton: {
+      type: Boolean,
+      default: false
     }
+  },
+  computed: {
+    ...mapGetters(['isFavorited'])
+  },
+  methods: {
+    ...mapActions(['toggleFavorite'])
   }
-  </script>
-  
-  <style scoped>
-  .movie-card {
-    display: flex;
-    margin-bottom: 20px;
-  }
-  
-  .movie-poster {
-    width: 200px;
-    height: auto;
-    margin-right: 20px;
-  }
-  
-  .movie-details {
-    flex: 1;
-  }
-  </style>
-  
+};
+</script>
+
+<style scoped>
+.movie-poster {
+  width: 100%;
+  height: auto;
+}
+
+.movie-name {
+  font-size: 16px;
+  font-weight: bold;
+  min-height: 40px;
+}
+
+.release-date {
+  font-size: 12px;
+  color: #666;
+}
+
+button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+</style>
