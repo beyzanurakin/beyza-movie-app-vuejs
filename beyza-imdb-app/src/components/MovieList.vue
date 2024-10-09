@@ -14,9 +14,8 @@
 
 <script>
 import { ref, computed } from 'vue';
-import axios from 'axios';
+import { useAsyncData } from 'nuxt/app'; 
 import MovieCard from './MovieCard.vue';
-import { mapActions } from 'vuex';
 
 export default {
   name: 'MovieList',
