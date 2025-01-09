@@ -1,17 +1,15 @@
-import { createRouter, createWebHistory } from "vue-router";
+import Vue from 'vue';
+import Router from 'vue-router';
+import MoviePage from '@/components/MoviePage.vue';
 
-const routes = [
-  { path: "/movies/popular", component: () => import("../views/Movies/Popular.vue") },
-  { path: "/movies/upcoming", component: () => import("../views/Movies/Upcoming.vue") },
-  { path: "/movies/top-rated", component: () => import("../views/Movies/TopRated.vue") },
-  { path: "/tvshows/popular", component: () => import("../views/TVShows/Popular.vue") },
-  { path: "/tvshows/upcoming", component: () => import("../views/TVShows/Upcoming.vue") },
-  { path: "/tvshows/top-rated", component: () => import("../views/TVShows/TopRated.vue") },
-];
+Vue.use(Router);
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
+export default new Router({
+  routes: [
+    {
+      path: '/movie/:id',
+      name: 'MoviePage',
+      component: MoviePage,
+    },
+  ],
 });
-
-export default router;

@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "nuxt": "^3.13.2",
+    "vue-router": "^4.5.0",
     "vuex": "^4.0.2"
   }
 }
